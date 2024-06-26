@@ -78,9 +78,16 @@ jobs:
           name: python-app
           path: .
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+      - name: 'Login to Azure'
+        uses: azure/login@v1
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          client-id: b71f309d-ba6a-4c59-a22a-da9f29f5dab9
+          tenant-id: "e1a09798-e919-43db-9ccf-6d63cc476bde"
+          subscription-id: "646863ae-2524-4539-ab52-0d35dea77ad2"
+
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
+        with:
+          app-name: 'translator-app01'
+          slot-name: 'Production'
